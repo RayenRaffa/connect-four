@@ -1,5 +1,10 @@
+const path = require('path');
 module.exports = {
-  entry: __dirname + '/client/src/index.jsx',
+  entry: path.join(__dirname, 'client', 'src', 'index.jsx'),
+  output: {
+    path: path.join(__dirname, 'client', 'dist'),
+    filename: 'bundle.js'
+  },
   module: {
     rules: [
       {
@@ -11,11 +16,19 @@ module.exports = {
             presets: ['@babel/preset-react', '@babel/preset-env']
           }
         }
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          'css-loader', // 
+          'sass-loader',
+          'style-loader' 
+        ]
       }
     ]
   },
-  output: {
-    filename: 'bundle.js',
-    path: __dirname + 'client/dist'
-  }
+  mode: 'development'
 };
+
+
+// TODO : make the app run with the webpack dev server
